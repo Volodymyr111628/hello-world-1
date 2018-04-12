@@ -1,0 +1,193 @@
+using System;
+using System.IO;
+
+namespace Task
+{
+    class Program
+    {
+        public static int gr_amount = 22;
+
+        static void Main(string[] args)
+        {           
+            System.IO.File.WriteAllText(@"D:/Users.txt", string.Empty);
+           
+            object[,] group = FillFields();
+            
+            WriteToConsole(group);
+                   
+            SortGroup(group);            
+
+            WriteToFile(group);
+
+            group = ReadFromFile();
+
+            // WriteToConsole(group);
+
+            Console.ReadLine();
+        }
+        public static int CalculateAge(object birth)
+        {
+           DateTime date = DateTime.Parse(birth.ToString());
+           return   DateTime.Now.Year - date.Year;           
+        }
+
+        public static object[,] FillFields()
+        {
+            object[,] group = new object[gr_amount, 3];
+
+            group[0, 0] = "Гутій Тетяна       ";
+            group[0, 1] = "Жіноча";
+            group[0, 2] = "09.02.1999";
+
+            group[1, 0] = "Йовбак Андріанна   ";
+            group[1, 1] = "Жіноча";
+            group[1, 2] = "20.12.1999";
+
+            group[2, 0] = "Ярема Юліан        ";
+            group[2, 1] = "Чоловіча";
+            group[2, 2] = "01.07.1999";
+
+            group[3, 0] = "Кугівчак Володимир ";
+            group[3, 1] = "Чоловіча";
+            group[3, 2] = "24.09.1998";
+
+            group[4, 0] = "Корняк Ірина       ";
+            group[4, 1] = "Жіноча";
+            group[4, 2] = "20.07.1999";
+
+            group[5, 0] = "Петровський Богдан ";
+            group[5, 1] = "Чоловіча";
+            group[5, 2] = "12.03.1998";
+
+            group[6, 0] = "Медицький Олександр";
+            group[6, 1] = "Чоловіча";
+            group[6, 2] = "08.05.1999";
+
+            group[7, 0] = "Паньків Олесь      ";
+            group[7, 1] = "Чоловіча";
+            group[7, 2] = "06.12.1998";
+
+            group[8, 0] = "Вермій Володимир   ";
+            group[8, 1] = "Чоловіча";
+            group[8, 2] = "12.06.1999";
+
+            group[9, 0] = "Сачко Антон        ";
+            group[9, 1] = "Чоловіча";
+            group[9, 2] = "04.12.1998";
+
+            group[10, 0] = "Сорока Марія      ";
+            group[10, 1] = "Жіноча";
+            group[10, 2] = "04.12.1999";
+
+            group[11, 0] = "Коропецька Марта  ";
+            group[11, 1] = "Жіноча";
+            group[11, 2] = "09.07.1999";
+
+            group[12, 0] = "Кріль Остап       ";
+            group[12, 1] = "Чоловіча";
+            group[12, 2] = "09.02.1999";
+
+            group[13, 0] = "Анчіфоров Ілля    ";
+            group[13, 1] = "Чоловіча";
+            group[13, 2] = "12.08.1999";
+
+            group[14, 0] = "Вовк Юрій         ";
+            group[14, 1] = "Чоловіча";
+            group[14, 2] = "19.02.1998";
+
+            group[15, 0] = "Дмитрник Ольга    ";
+            group[15, 1] = "Жіноча";
+            group[15, 2] = "19.04.1998";
+
+            group[16, 0] = "Оліщук Іван       ";
+            group[16, 1] = "Чоловіча";
+            group[16, 2] = "29.03.1999";
+
+            group[17, 0] = "Химера Богдан     ";
+            group[17, 1] = "Чоловіча";
+            group[17, 2] = "09.10.1999";
+
+            group[18, 0] = "Гузій Володимир   ";
+            group[18, 1] = "Чоловіча";
+            group[18, 2] = "04.08.1999";
+
+            group[19, 0] = "Мулик Роман       ";
+            group[19, 1] = "Чоловіча";
+            group[19, 2] = "18.05.1999";
+
+            group[20, 0] = "Дель Соль Арсен   ";
+            group[20, 1] = "Чоловіча";
+            group[20, 2] = "16.06.1999";
+
+            group[21, 0] = "Хорощак Валентин  ";
+            group[21, 1] = "Чоловіча";
+            group[21, 2] = "24.03.1998";
+
+            return group;
+        }
+
+        public static void WriteToConsole(object[,] group)
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            for (int i = 0; i < gr_amount; i++)
+            {
+                Console.WriteLine(" {0} \t Стать: {1}", group[i, 0], group[i, 1]);
+                Console.WriteLine(" Дата народження : {0} \t Вік: {1}", group[i, 2], CalculateAge(group[i,2]));
+            }
+        }
+
+        public static object[,] SortGroup(object[,] group)
+        {
+            for (int i = 0; i < gr_amount; i++)
+                for (int j = i + 1; j < gr_amount; j++)
+                    if (group[i, 0].ToString().CompareTo(group[j, 0].ToString()) > 0)
+                    {
+                        object replacer = group[i, 0];
+                        group[i, 0] = group[j, 0];
+                        group[j, 0] = replacer;
+
+                        replacer = group[i, 1];
+                        group[i, 1] = group[j, 1];
+                        group[j, 1] = replacer;
+
+                        replacer = group[i, 2];
+                        group[i, 2] = group[j, 2];
+                        group[j, 2] = replacer;
+                    }
+
+            return group;
+        }
+
+        public static void WriteToFile(object[,] group)
+        {
+            string path = "D:/Users.txt";
+
+            if (!File.Exists(path))
+            {
+                File.Create(path).Dispose();
+            }
+
+            using (TextWriter tw = new StreamWriter(path, true))
+            {
+                for (int i = 0; i < gr_amount; i++)
+                    tw.WriteLine("" + group[i, 0] +"\t" + group[i, 1] + "\t" + group[i, 2]);
+            }
+        }
+
+        public static object[,] ReadFromFile()
+        {
+            string[] lines = File.ReadAllLines("D:/Users.txt");
+            object[,] group = new object[gr_amount, 3];
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string[] line = lines[i].Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                for (int j = 0; j < 3; j++)
+                {
+                    group[i, j] = line[j];
+                }
+            }
+
+            return group;
+        }
+    }
+}
