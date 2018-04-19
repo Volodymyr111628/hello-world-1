@@ -4,9 +4,9 @@
 using namespace std;
 int main()
   {
-  
-  
-  
-  
+  sf
+  erg
+  dgeg
+  dg
   return 0;
   }
